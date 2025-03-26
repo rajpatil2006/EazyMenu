@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - EazyMenu</title>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@12.0.0"></script>
+    <link rel="stylesheet" href="clogin.css">
+</head>
+<body>
+    <header>
+        <div class="logo">EazyMenu</div>
+        <nav>
+            <ul>
+               
+                <li><a href="../../index.html" class="signup-btn">Back</a></li>
+                <li><a href="csignup.html" class="login-btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="signup-box">
+        <h2>Log in as Customer</h2>
+        <form id="myForm" action="clogin.php" method="post">
+           
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" name="submit" class="btn-signup" onclick="register()">Log IN</button>
+        <p>or</p>
+        <button id="googleLogin" class="google-login">Log in With Google</button>
+    </div>
+    
+    <script>
+        const client = new Appwrite.Client();
+        const account = new Appwrite.Account(client);
+        
+        client
+            .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
+            .setProject('67d64f9c003a8ec2bfbe'); // Replace with your project ID
+        
+        document.getElementById('googleLogin').addEventListener('click', async () => {
+            try {
+                await account.createOAuth2Session('google');
+            } catch (error) {
+                console.error("Login failed:", error);
+            }
+        });
+        
+    </script>
+</body>
+</html>
