@@ -61,7 +61,7 @@ $messData = $messExists ? mysqli_fetch_assoc($messResult) : null;
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required value="<?php echo $rowM['mopassword']; ?>"pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,12}$" 
+                    <input type="password" id="password" name="password" required value="<?php echo $rowM['mopassword']; ?>" pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,12}$" 
                     title="Password must be 4-8 characters long, contain at least one uppercase letter and one number.">
                 </div>
                 <p><?php echo $messExists ? "" : "No mess added yet..."; ?></p>

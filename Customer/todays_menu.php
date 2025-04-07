@@ -75,19 +75,7 @@ while ($row = mysqli_fetch_assoc($menuResult)) {
                     <p><strong>Opening:</strong> <?php echo $vegMenu[$meal]['menuotime']; ?></p>
                     <p><strong>Closing:</strong> <?php echo $vegMenu[$meal]['menuctime']; ?></p>
                     
-                    <!-- Edit and Delete Icons -->
-                    <div class="menu-actions">
-                        <a href="#" class="edit-icon" onclick="openUpdateModal(
-                            '<?php echo $vegMenu[$meal]['menuid']; ?>',
-                            '<?php echo $meal; ?>',
-                            '<?php echo $vegMenu[$meal]['veg_menuitemprice']; ?>',
-                            '<?php echo $vegMenu[$meal]['menuotime']; ?>',
-                            '<?php echo $vegMenu[$meal]['menuctime']; ?>',
-                            '<?php echo $vegMenu[$meal]['menudate']; ?>',
-                            'veg'
-                        )">✏️</a>
-                        <a href="deletemenu.php?menuid=<?php echo $vegMenu[$meal]['menuid']; ?>" class="delete-icon">🗑️</a>
-                    </div>
+                    
 
                 <?php else: ?>
                     <p class="no-menu">Not Added</p>
@@ -116,20 +104,7 @@ while ($row = mysqli_fetch_assoc($menuResult)) {
                     <p><strong>Opening:</strong> <?php echo $nonVegMenu[$meal]['menuotime']; ?></p>
                     <p><strong>Closing:</strong> <?php echo $nonVegMenu[$meal]['menuctime']; ?></p>
                     
-                    <!-- Edit and Delete Icons -->
-                    <div class="menu-actions">
-                          <a href="#" class="edit-icon" onclick="openUpdateModal(
-                            '<?php echo $nonVegMenu[$meal]['menuid']; ?>',
-                            '<?php echo $meal; ?>',
-                            '<?php echo $nonVegMenu[$meal]['nonveg_menuitemprice']; ?>',
-                            '<?php echo $nonVegMenu[$meal]['menuotime']; ?>',
-                            '<?php echo $nonVegMenu[$meal]['menuctime']; ?>',
-                            '<?php echo $nonVegMenu[$meal]['menudate']; ?>',
-                            'nonVeg'
-                        )">✏️</a>
-                        <a href="deletemenu.php?menuid=<?php echo $nonVegMenu[$meal]['menuid']; ?>" class="delete-icon">🗑️</a>
-                    </div>
-
+                    
                 <?php else: ?>
                     <p class="no-menu">Not Added</p>
                 <?php endif; ?>
