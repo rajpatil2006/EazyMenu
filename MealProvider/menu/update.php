@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $menuOTime = $_POST['menuotime'];
     $menuCTime = $_POST['menuctime'];
     $menuDate = $_POST['menudate'];
-
    
     
     // Fetch messid from messowner table
@@ -44,8 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row = mysqli_fetch_assoc($menuResult);
      // Determine which column to update
      
-     if (!empty($row['nonveg_menuitemprice'])) {
-        
+  
+     if ($mealType == "nonVeg") {
+
         $columnName = "nonveg_menuitemprice";
     } else {
         $columnName = "veg_menuitemprice";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     WHERE menuid = '$menuId' AND messid = '$messId'";
 
     if (mysqli_query($con, $updateQuery)) {
-        echo "<script>alert('Menu updated successfully!'); window.location.href='todaymenu.php?mId=$mId';</script>";
+        echo "<script>alert('Menu updated successfully!'); window.location.href='todaymenu.php';</script>";
     } else {
         echo "Error: " . mysqli_error($con);
     }

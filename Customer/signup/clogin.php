@@ -1,5 +1,6 @@
 <?php
 	include "../../config.php";
+	session_start(); 
 	if(isset($_POST['submit']))
 	{
 		extract($_POST);
@@ -13,9 +14,10 @@
 			$row=mysqli_fetch_array($log);
             $cId=$row['cid'];
            
+			$_SESSION['cId'] = $cId;
 		    echo "<script>";
 			echo "alert('Login Successful.');";
-            echo "window.location.href = '../cdashboard.php?cId=$cId';";
+            echo "window.location.href = '../cdashboard.php';";
 			echo "</script>";
 			
 		}

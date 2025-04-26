@@ -1,7 +1,12 @@
 <?php
 include "../config.php";
-
-$cId = $_GET['cId'];
+session_start();
+if (!isset($_SESSION['cId'])) {
+    // Redirect to login if session is not set
+    header("Location: signup/clogin.html");
+    exit();
+}
+$cId = $_SESSION['cId'];    
 
 // Fetch customer details
 $customerQuery = "SELECT * FROM customer WHERE cid = $cId";
@@ -24,8 +29,8 @@ $customer = mysqli_fetch_assoc($customerResult);
         <div class="logo">EazyMenu</div>
         <nav>
             <ul>
-                <li><a href="cdashboard.php?cId=<?php echo $cId;?>" class="profile-btn">Back to Dashboard</a></li>
-                <li><a href="../index.html" class="login-btn">Log Out</a></li>
+                <li><a href="cdashboard.php" class="profile-btn">Back to Dashboard</a></li>
+                <li><a href="logout.php" class="login-btn">Log Out</a></li>
             </ul>
         </nav>
     </header>

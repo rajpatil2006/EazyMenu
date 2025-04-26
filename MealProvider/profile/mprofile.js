@@ -9,7 +9,11 @@ function openGoogleMaps() {
     } else {
         // If no manual input, fetch live location
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success, error);
+            navigator.geolocation.getCurrentPosition(success, error, {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            });
         } else {
             alert("Geolocation is not supported by your browser.");
         }

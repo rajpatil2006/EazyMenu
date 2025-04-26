@@ -1,6 +1,12 @@
 <?php
 include "../../config.php";
-$mId = $_GET['mId'];
+session_start();
+if (!isset($_SESSION['mId'])) {
+    // Redirect to login if session is not set
+    header("Location: ../signup/mlogin.html");
+    exit();
+}
+$mId = $_SESSION['mId'];  
 
 // Fetch Mess Owner Details
 $selectQuery = "SELECT * FROM `messowner` WHERE moid = $mId";
@@ -26,17 +32,17 @@ $messData = $messExists ? mysqli_fetch_assoc($messResult) : null;
         <h2 class="logo">EazyMenu</h2>
         <nav>
             <ul>
-                <li><a href="../mdashboard.php?mId=<?php echo $mId ?>">📊 Dashboard</a></li>
+                <li><a href="../mdashboard.php">📊 Dashboard</a></li>
                 <li><a href="" class="active">⚙️ Mess Details</a></li>
-                <li><a href="../menu/todaymenu.php?mId=<?php echo $mId ?>">🍽️ Today's Menu</a></li>
-                <li><a href="hhmenu.html?mId=<?php echo $mId ?>">📜 Menu History</a></li>            
-                <li><a href="../../index.html" class="logout">🔒 Logout</a></li>
+                <li><a href="../menu/todaymenu.php">🍽️ Today's Menu</a></li>
+                <li><a href="../menu/hmenu.php">📜 Menu History</a></li>            
+                <li><a href="../logout.php" class="logout">🔒 Logout</a></li>
             </ul>
         </nav>
     </aside>
     <main class="content">
         <header>
-            <h1>Welcome, <?php echo $rowM['mofname'].' '.$rowM['molname']; ?></h1>
+            <h2 style="margin-left:30px; color: #d3416a;">Welcome <b style="color: #696969;"><?php echo $rowM['mofname'].' '.$rowM['molname']; ?> !! </b></h2>
         </header>
         <section class="profile-form">
             <h2>Update Profile</h2>
@@ -57,7 +63,7 @@ $messData = $messExists ? mysqli_fetch_assoc($messResult) : null;
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required value="<?php echo $rowM['mophone'] ?: 'Not Added yet..'; ?>" pattern="[0-9]{10}" title="Enter a valid 10-digit contact number">
+                    <input type="tel" id="phone" name="phone" required value="<?php echo $rowM['mophone'] ?: ''; ?>" pattern="[0-9]{10}" title="Enter a valid 10-digit contact number">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>

@@ -1,5 +1,6 @@
 <?php
 	include "../../config.php";
+	session_start(); 
 	if(isset($_POST['submit']))
 	{
 		extract($_POST);
@@ -10,11 +11,12 @@
 		$log=mysqli_query($con,"select * from messowner where moemail='$email' and mopassword='$password'") or die(mysqli_error($con));
 		if(mysqli_num_rows($log)>0){
 			$row=mysqli_fetch_array($log);
-            $mId=$row['moid'];
+			$_SESSION['mId'] = $row['moid'];
+           // $mId=$row['moid'];
            
 		    echo "<script>";
 			echo "alert('Login Successful.');";
-            echo "window.location.href = '../mdashboard.php?mId=$mId';";
+            echo "window.location.href = '../mdashboard.php';";
 			echo "</script>";
 			
 		}
@@ -28,3 +30,10 @@
 	}
 
 ?>
+
+<!-- echo "<script>";
+echo "setTimeout(function() {";
+echo "  alert('Login Successful.');";
+echo "  window.location.href = '../mdashboard.php';";
+echo "}, 1000);"; // 1000 milliseconds = 1 second
+echo "</script>"; -->

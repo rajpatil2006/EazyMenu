@@ -50,10 +50,16 @@ body {
 .content {
     flex: 1;
     padding: 20px;
+    
 }
 
 header h1 {
     margin-bottom: 20px;
+    opacity: 60%;
+   
+}
+.logo{
+    
 }
 
 /* Dashboard Cards */

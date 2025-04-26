@@ -10,33 +10,9 @@ function success(position) {
     const userLat = position.coords.latitude;
     const userLng = position.coords.longitude;
 
-    alert(`User Location: ${userLat}, ${userLng}`); // Debugging
+   // alert(`User Location: ${userLat}, ${userLng}`); // Debugging
 
     // Call backend to fetch nearby messes
-    fetch(`get_messes.php?lat=${userLat}&lng=${userLng}`)
-        .then(response => response.json())
-        .then(data => {
-            displayMesses(data, userLat, userLng);
-        })
-        .catch(error => console.error("Error fetching mess data:", error));
-}
-
-function error() {
-    alert("Unable to retrieve your location. Please check your network connection.");
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
-});
-
-function success(position) {
-    const userLat = position.coords.latitude;
-    const userLng = position.coords.longitude;
-
     fetch(`get_messes.php?lat=${userLat}&lng=${userLng}`)
         .then(response => response.json())
         .then(data => {
@@ -88,12 +64,12 @@ function displayMesses(messes, userLat, userLng) {
         const distance = getDistance(userLat, userLng, messLat, messLng);
         console.log(`Mess: ${mess.messname}, Distance: ${distance} km`);
 
-        return distance <= 1;
+        return true; // No filtering by distance
     });
 
     messContainer.innerHTML = "";
     if (nearbyMesses.length === 0) {
-        messContainer.innerHTML = `<p>No messes found within 1 km.</p>`;
+        messContainer.innerHTML = `<p>No messes found.</p>`;
         return;
     }
 

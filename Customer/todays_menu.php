@@ -1,7 +1,13 @@
 <?php
 include "../config.php";
 $mId = $_GET['mId'];
-$cId = $_GET['cId'];
+session_start();
+if (!isset($_SESSION['cId'])) {
+    // Redirect to login if session is not set
+    header("Location: signup/clogin.html");
+    exit();
+}
+$cId = $_SESSION['cId'];   
 $todayDate = date('Y-m-d');
 
 $messId=$mId;
@@ -45,9 +51,9 @@ while ($row = mysqli_fetch_assoc($menuResult)) {
         <div class="logo">EazyMenu</div>
         <nav>
             <ul>
-                <li><a href="cdashboard.php?cId=<?php echo $cId;?>" class="profile-btn">Back to Dashboard</a></li>
-                <li><a href="profile.php?cId=<?php echo $cId;?>" class="profile-btn">Profile</a></li>
-                <li><a href="../index.html" class="login-btn">Log Out</a></li>
+                <li><a href="cdashboard.php" class="profile-btn">Back to Dashboard</a></li>
+                <li><a href="profile.php" class="profile-btn">Profile</a></li>
+                <li><a href="logout.php" class="login-btn">Log Out</a></li>
             </ul>
         </nav>
     </header>

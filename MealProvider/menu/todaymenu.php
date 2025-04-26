@@ -1,6 +1,12 @@
 <?php
 include "../../config.php";
-$mId = $_GET['mId'];
+session_start();
+if (!isset($_SESSION['mId'])) {
+    // Redirect to login if session is not set
+    header("Location: ../signup/mlogin.html");
+    exit();
+}
+$mId = $_SESSION['mId'];  
 $todayDate = date('Y-m-d');
 
 // Fetch Mess Owner Details (including messid)
@@ -154,21 +160,21 @@ function addUpdateMenuItem() {
         <h2 class="logo">EazyMenu</h2>
         <nav>
             <ul>
-                <li><a href="../mdashboard.php?mId=<?php echo $mId ?>">📊 Dashboard</a></li>
-                <li><a href="../profile/mprofile.php?mId=<?php echo $mId ?>">⚙️ Mess Details</a></li>
+                <li><a href="../mdashboard.php">📊 Dashboard</a></li>
+                <li><a href="../profile/mprofile.php">⚙️ Mess Details</a></li>
                 <li><a href="" class="active">🍽️ Today's Menu</a></li>
-                <li><a href="hmenu.html?mId=<?php echo $mId ?>">📜 Menu History</a></li>            
-                <li><a href="../../index.html" class="logout">🔒 Logout</a></li>
+                <li><a href="hmenu.php">📜 Menu History</a></li>            
+                <li><a href="../logout.php" class="logout">🔒 Logout</a></li>
             </ul>
         </nav>
     </aside>
     <main class="content">
         <header>
-            <h1>Welcome, <?php echo $rowM['mofname'].' '.$rowM['molname']; ?></h1>
+            <h2 style="margin-left:30px; color: #d3416a;">Welcome <b style="color: #696969;"><?php echo $rowM['mofname'].' '.$rowM['molname']; ?> !!</b></h2>
         </header>
 
         <section class="quick-actions">
-            <h2>Quick Actions</h2>
+            <h4>Quick Actions</h4>
 
             <?php if ($messType == 'veg' || $messType == 'both'): ?>
                 <button onclick="openModal('veg')">➕ Add Veg Meal</button>
@@ -210,7 +216,7 @@ function addUpdateMenuItem() {
                             '<?php echo $vegMenu[$meal]['menudate']; ?>',
                             'veg'
                         )">✏️</a>
-                        <a href="deletemenu.php?menuid=<?php echo $vegMenu[$meal]['menuid']; ?>" class="delete-icon">🗑️</a>
+                        <a href="deletemenu.php?menuid=<?php echo $vegMenu[$meal]['menuid']; ?>&mtype=veg" onclick="return confirm('Are you sure you want to delete this menu?');" class="delete-icon">🗑️</a>
                     </div>
 
                 <?php else: ?>
@@ -251,7 +257,7 @@ function addUpdateMenuItem() {
                             '<?php echo $nonVegMenu[$meal]['menudate']; ?>',
                             'nonVeg'
                         )">✏️</a>
-                        <a href="deletemenu.php?menuid=<?php echo $nonVegMenu[$meal]['menuid']; ?>" class="delete-icon">🗑️</a>
+                        <a href="deletemenu.php?menuid=<?php echo $nonVegMenu[$meal]['menuid']; ?>&mtype=nonveg" onclick="return confirm('Are you sure you want to delete this menu?');" class="delete-icon">🗑️</a>
                     </div>
 
                 <?php else: ?>
@@ -318,7 +324,7 @@ function addUpdateMenuItem() {
 
             <div class="form-group">
                 <label>Menu Type:</label>
-                <select name="menutype" id="updateMenuTypeDropdown">
+                <select name="menutype" id="updateMenuTypeDropdown" readonly>
                     <option>Breakfast</option>
                     <option>Lunch</option>
                     <option>Dinner</option>
@@ -339,7 +345,7 @@ function addUpdateMenuItem() {
 
             <div class="form-group">
                 <label>Date:</label>
-                <input type="date" name="menudate" id="updateMenuDate" required>
+                <input type="date" name="menudate" id="updateMenuDate" required readonly>
             </div>
 
             <div class="form-group">

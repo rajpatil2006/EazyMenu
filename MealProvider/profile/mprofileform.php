@@ -29,7 +29,7 @@ if(isset($_POST['submit'])) {
     if (!empty($mname) || !empty($mcontact) || !empty($marea) || !empty($mlocation)) {
         
         // File upload handling
-        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/EazyMeal/MealProvider/profile/uploads/";
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/EazyMenu/MealProvider/profile/uploads/";
         $messImageURL = "";
         $messCardURL = "";
 
@@ -45,7 +45,7 @@ if(isset($_POST['submit'])) {
                 $filePath = $targetDir . $fileName;
 
                 if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                    return "/EazyMeal/MealProvider/profile/uploads/" . $fileName; // Return correct path
+                    return "/EazyMenu/MealProvider/profile/uploads/" . $fileName; // Return correct path
                 }
             }
             return "";
@@ -113,17 +113,17 @@ if(isset($_POST['submit'])) {
     if ($ownerUpdated && $messUpdated) {
         echo "<script>
                 alert('Mess Owner and Mess Details Updated Successfully!');
-                window.location.href = 'mprofile.php?mId=$mId';
+                window.location.href = 'mprofile.php';
               </script>";
     } elseif ($ownerUpdated) {
         echo "<script>
                 alert('Mess Owner Details Updated Successfully!');
-                window.location.href = 'mprofile.php?mId=$mId';
+                window.location.href = 'mprofile.php';
               </script>";
     } elseif ($messUpdated) {
         echo "<script>
                 alert('Mess Details Updated Successfully!');
-                window.location.href = 'mprofile.php?mId=$mId';
+                window.location.href = 'mprofile.php';
               </script>";
     } else {
         echo "<script>
